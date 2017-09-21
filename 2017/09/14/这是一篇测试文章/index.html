@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zhen Pen">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="这是一篇测试文章"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="PENiNK"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>这是一篇测试文章 - PENiNK</title>
+
+
+  <link rel="shortcut icon" href="/images/JJMonster.png">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-reboot.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-grid.min.css" rel="stylesheet">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css?timestamp=1506003030293">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        PENiNK
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar-menu"> 
+      
+        
+          <a href="/.">
+            
+              home
+            
+          </a>
+        
+          <a href="/archives">
+            
+              archive
+            
+          </a>
+        
+          <a href="/about">
+            
+              about
+            
+          </a>
+        
+        <a href="/search/">
+          <svg class="svg-icon" aria-hidden="true">
+            <use xlink:href="#icon-search"></use>
+          </svg>
+        </a>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  
+<div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    
+      <div class="post-background" style="background-image: url(https://blog-1253465055.cossh.myqcloud.com/usr/uploads/2017/07/2296054605.png);">
+        <svg class='wave' xmlns="http://www.w3.org/2000/svg">
+          <g fill="#fff" fill-opticy='0.5'>
+              <path d="M 0 48 Q 75 39, 150 48 T 300 48 T 450 48 T 600 48 T 750 48 T 900 48 T 1050 48 T 1200 48 T 1350 48 T 1500 48 T 1650 48 T 1800 48 T 1950 48 T 2100 48 T 2250 48 T 2400 48 T 2550 48 T 2700 48 T 2850 48 T 3000 48 T 3150 48 T 3300 48 T 3450 48 T 3600 48 T 3750 48 T 3900 48 T 4050 48 T 4200 48 T 4350 48 T 4500 48 T 4650 48 T 4800 48 T 4950 48 T 5100 48 T 5250 48 T 5400 48 T 5550 48 T 5700 48 T 5850 48 T 6000 48 V 100 H 0 V 0"></path>
+              <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0" to="-300" dur="5s" repeatCount="indefinite"></animateTransform>
+          </g>
+      </svg> 
+      </div>
+    
+    <div class="theme-container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            这是一篇测试文章
+            
+          </h1>
+          <p class="posted-on">
+          Published on 2017-09-14 15:58:14
+          </p>
+          
+          <div class="tags-links">
+            
+            </div>
+          
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>react-router V4 相对于react-router V2 or V3 几乎是重写了, 新版的react-router更偏向于组件化(everything is component)。</p>
+<p>V4汲取了很多思想，路由即是组件，使路由更具声明式，且方便组合。如果你习惯使用react，那么一定会很快上手新版的react-router。</p>
+<p>react-router V4 被一分为三: react-router-dom(for web)、react-router-native(for native)、react-router(core)。但如果仅在浏览器中使用的话，一般只需要用到react-router-dom就可以了。</p>
+<h2 id="改动点"><a href="#改动点" class="headerlink" title="改动点"></a>改动点</h2><h3 id="1-Router-Route-的改变"><a href="#1-Router-Route-的改变" class="headerlink" title="1. Router/Route 的改变"></a>1. Router/Route 的改变</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// V2 or V3</span></div><div class="line"><span class="keyword">import</span> &#123; Router, Route, hashHistory &#125; <span class="keyword">from</span> <span class="string">'react-router'</span>;</div><div class="line"></div><div class="line">&lt;Router history=&#123;hashHistory&#125;&gt;</div><div class="line">  &lt;Route path=<span class="string">'/foo'</span> component=&#123;Foo&#125; /&gt;</div><div class="line">  &lt;Route path=<span class="string">'/bar'</span> component=&#123;Bar&#125; /&gt;</div><div class="line">&lt;<span class="regexp">/Router&gt;</span></div><div class="line"><span class="regexp">/</span><span class="regexp">/ V4 Router组件里只能渲染一个组件</span></div><div class="line"><span class="regexp">import &#123;</span></div><div class="line"><span class="regexp">    HashRouter as Router,</span></div><div class="line"><span class="regexp">    Route</span></div><div class="line"><span class="regexp">&#125; from 'react-router-dom';</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">&lt;Router&gt;</span></div><div class="line"><span class="regexp">  &lt;div&gt;</span></div><div class="line"><span class="regexp">    &lt;Route path='/</span>foo<span class="string">' component=&#123;Foo&#125; /&gt;</span></div><div class="line"><span class="string">    &lt;Route path='</span>/bar<span class="string">' component=&#123;Bar&#125; /&gt;</span></div><div class="line"><span class="string">  &lt;/div&gt;</span></div><div class="line"><span class="string">&lt;/Router&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="2-组件嵌套"><a href="#2-组件嵌套" class="headerlink" title="2. 组件嵌套"></a>2. 组件嵌套</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// V2 or V3 路由组件嵌套</span></div><div class="line"><span class="keyword">import</span> &#123; Router, Route, hashHistory &#125; <span class="keyword">from</span> <span class="string">'react-router'</span>;</div><div class="line"></div><div class="line">&lt;Router history=&#123;hashHistory&#125;&gt;</div><div class="line">  &lt;Route path=<span class="string">'/'</span> component=&#123;App&#125;&gt;</div><div class="line">    &lt;Route path=<span class="string">'foo'</span> component=&#123;Foo&#125; /&gt;</div><div class="line">    &lt;Route path=<span class="string">'bar'</span> component=&#123;Bar&#125; /&gt;</div><div class="line">  &lt;<span class="regexp">/Route&gt;</span></div><div class="line"><span class="regexp">&lt;/</span>Router&gt;</div><div class="line"><span class="comment">// V4 Router 的路由组件嵌套</span></div><div class="line"><span class="keyword">import</span> &#123;</div><div class="line">    HashRouter <span class="keyword">as</span> Router,</div><div class="line">    Route,</div><div class="line">    Switch</div><div class="line">&#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</div><div class="line"></div><div class="line">&lt;Router&gt;</div><div class="line"> &lt;Route path=<span class="string">"/"</span> component=&#123;(props) =&gt; (</div><div class="line">    &lt;App &#123;...props&#125;&gt;</div><div class="line">      &lt;Switch&gt;</div><div class="line">        &lt;Route path=<span class="string">'/foo'</span> component=&#123;Foo&#125; /&gt;</div><div class="line">        &lt;Route path=<span class="string">'/bar'</span> component=&#123;Bar&#125; /&gt;</div><div class="line">      &lt;<span class="regexp">/Switch&gt;</span></div><div class="line"><span class="regexp">    &lt;/</span>App&gt;</div><div class="line">  )&#125;/&gt;</div><div class="line">&lt;<span class="regexp">/Router&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="3-路由的生命周期"><a href="#3-路由的生命周期" class="headerlink" title="3. 路由的生命周期"></a>3. 路由的生命周期</h3><p>在react-router V4中去掉了on<em>**</em>的路由生命周期的钩子，但是你可以在组件中用componentDidMount 或 componentWillMount 代替 onEnter，可以用componentWillUpdate 或 componentWillReceiveProps代替 onUpdate，你可以用componentWillUnmount 代替 onLeave。</p>
+<h3 id="4-Link"><a href="#4-Link" class="headerlink" title="4. Link"></a>4. Link</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// V2 or V3</span></div><div class="line"><span class="keyword">import</span> &#123; Link &#125; <span class="keyword">from</span> <span class="string">'react-router'</span>;</div><div class="line"></div><div class="line"><span class="comment">// V4</span></div><div class="line"><span class="keyword">import</span> &#123; Link &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</div></pre></td></tr></table></figure>
+<h3 id="5-history-push-and-history-replace"><a href="#5-history-push-and-history-replace" class="headerlink" title="5. history.push and history.replace"></a>5. history.push and history.replace</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// V2 or V3</span></div><div class="line">history.push(&#123;</div><div class="line">    pathname: <span class="string">'/home'</span>,</div><div class="line">    query: &#123;</div><div class="line">        foo: <span class="string">'test'</span>,</div><div class="line">bar: <span class="string">'temp'</span></div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">history.replace(&#123;</div><div class="line">    pathname: <span class="string">'/home'</span>,</div><div class="line">    query: &#123;</div><div class="line">        foo: <span class="string">'test'</span>,</div><div class="line">bar: <span class="string">'temp'</span></div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// V4</span></div><div class="line">history.push(&#123;</div><div class="line">    pathname: <span class="string">'/home'</span>,</div><div class="line">    search: <span class="string">'?foo=test&amp;bar=temp'</span>,</div><div class="line">&#125;);</div><div class="line">history.replace(&#123;</div><div class="line">    pathname: <span class="string">'/home'</span>,</div><div class="line">    search: <span class="string">'?foo=test&amp;bar=temp'</span>,</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="6-props-params"><a href="#6-props-params" class="headerlink" title="6. props.params"></a>6. props.params</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// V2 or V3 获取params可以这么获取</span></div><div class="line"><span class="keyword">this</span>.props.params</div><div class="line"></div><div class="line"><span class="comment">// V4</span></div><div class="line"><span class="keyword">this</span>.props.match.params</div></pre></td></tr></table></figure>
+<h3 id="7-location-query"><a href="#7-location-query" class="headerlink" title="7. location.query"></a>7. location.query</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// V2 or V3 获取query可以这么获取</span></div><div class="line"><span class="keyword">this</span>.props.location.query</div><div class="line"></div><div class="line"><span class="comment">// V4 去掉了location.query，只能使用search来获取，为了让其跟浏览器一样</span></div><div class="line"><span class="comment">// 如果想要兼容以前的location.query，可以使用query-string库解析一下</span></div><div class="line"><span class="comment">// 如: queryString.parse(props.location.search)</span></div><div class="line"><span class="keyword">this</span>.props.location.search</div></pre></td></tr></table></figure>
+<h3 id="8-location-action"><a href="#8-location-action" class="headerlink" title="8. location.action"></a>8. location.action</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// V2 or V3 获取location的action</span></div><div class="line"><span class="keyword">this</span>.props.location.action</div><div class="line"></div><div class="line"><span class="comment">// V4 去掉了location.action, 放在了history里面</span></div><div class="line">history.action</div></pre></td></tr></table></figure>
+<h3 id="9-关于history"><a href="#9-关于history" class="headerlink" title="9.关于history"></a>9.关于history</h3><p>以前获取react-router里面的history库，可以这么获取:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;hashHistory <span class="keyword">as</span> history&#125; <span class="keyword">from</span> <span class="string">'react-router'</span>;</div></pre></td></tr></table></figure></p>
+<p>react-router V4:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> createHashHistory <span class="keyword">as</span> history <span class="keyword">from</span> <span class="string">'history/createHashHistory'</span>;</div></pre></td></tr></table></figure></p>
+<h2 id="兼容处理"><a href="#兼容处理" class="headerlink" title="兼容处理"></a>兼容处理</h2><p>因为要从react-router V2完全迁移到react-router V4工作量还是挺大的，一下子难以完全迁移，所以对某些地方做了兼容处理。</p>
+<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'lodash'</span>;</div><div class="line"><span class="keyword">import</span> queryString <span class="keyword">from</span> <span class="string">'query-string'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">processHistory</span>(<span class="params">history</span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> _push = history.push;</div><div class="line">    <span class="keyword">const</span> _replace = history.replace;</div><div class="line"></div><div class="line">    history.push = <span class="function"><span class="keyword">function</span> (<span class="params">one</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!_.isPlainObject(one)) &#123;</div><div class="line">            <span class="keyword">return</span> _push.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">const</span> o = <span class="built_in">Object</span>.assign(&#123;&#125;, one);</div><div class="line">        <span class="keyword">if</span> (o.query) &#123;</div><div class="line">            o.search = queryString.stringify(o.query);</div><div class="line">        &#125;</div><div class="line">        _push.apply(<span class="keyword">this</span>, [o]);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    history.replace = <span class="function"><span class="keyword">function</span> (<span class="params">one</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!_.isPlainObject(one)) &#123;</div><div class="line">            <span class="keyword">return</span> _replace.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">const</span> o = <span class="built_in">Object</span>.assign(&#123;&#125;, one);</div><div class="line">        <span class="keyword">if</span> (o.query) &#123;</div><div class="line">            o.search = queryString.stringify(o.query);</div><div class="line">        &#125;</div><div class="line">        _replace.apply(<span class="keyword">this</span>, [o]);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> history;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> processHistory;</div></pre></td></tr></table></figure>
+<h3 id="props"><a href="#props" class="headerlink" title="props"></a>props</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> queryString <span class="keyword">from</span> <span class="string">'query-string'</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> processReactRouterProps = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">const</span> newProps = <span class="built_in">Object</span>.assign(&#123;&#125;, props);</div><div class="line">    newProps.location.query = queryString.parse(props.location.search);</div><div class="line">    newProps.location.action = newProps.history.action;</div><div class="line">    newProps.params = props.match.params || &#123;&#125;; <span class="comment">// 不止 || 是否有意义</span></div><div class="line">    <span class="keyword">return</span> newProps;</div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> processReactRouterProps;</div></pre></td></tr></table></figure>
+<p>参考资料:</p>
+<ul>
+<li><a href="https://github.com/gmfe/blog/issues/6" target="_blank" rel="external">react-router2 迁移到 react-router4 关注点 · Issue #6 · gmfe/blog · GitHub</a></li>
+</ul>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="theme-container">
+      
+<div id="gayhub-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: location.pathname,
+  owner: 'blankPen',
+  repo: 'blankpen.github.io',
+  oauth: {
+    client_id: '2876433f6deb48fd8ee0',
+    client_secret: '60c78fd55ce124b53e6f6110409f2bae2d518877',
+  },
+})
+gitment.render('gayhub-container')
+</script>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/09/14/本地静态图片测试/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一章</a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="/2017/09/13/hello-world/" rel="prev">下一章 <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>PENiNK &copy; 2017</span>
+    
+      <span class="split">|</span>
+      <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> with Theme <a href="https://github.com/GallenHu/hexo-theme-Daily" target="_blank">Daily</a></span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+
+<script src='//at.alicdn.com/t/font_416556_smhdkcvqvgyzaor.js' ></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.core.js"></script>
+<script src="/js/echo.js?timestamp=1506003030294"></script>
+<script src="/js/app.js?timestamp=1506003030294"></script>
+
+
+
+
+</body>
+
+</html>

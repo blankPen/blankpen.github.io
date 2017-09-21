@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zhen Pen">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="angularjs实现依赖注入机制"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="PENiNK"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>angularjs实现依赖注入机制 - PENiNK</title>
+
+
+  <link rel="shortcut icon" href="/images/JJMonster.png">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-reboot.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-grid.min.css" rel="stylesheet">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css?timestamp=1506003030287">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        PENiNK
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar-menu"> 
+      
+        
+          <a href="/.">
+            
+              home
+            
+          </a>
+        
+          <a href="/archives">
+            
+              archive
+            
+          </a>
+        
+          <a href="/about">
+            
+              about
+            
+          </a>
+        
+        <a href="/search/">
+          <svg class="svg-icon" aria-hidden="true">
+            <use xlink:href="#icon-search"></use>
+          </svg>
+        </a>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  
+<div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    
+      <div class="post-hodler" ></div>
+    
+    <div class="theme-container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            angularjs实现依赖注入机制
+            
+          </h1>
+          <p class="posted-on">
+          Published on 2017-09-21 21:58:05
+          </p>
+          
+          <div class="tags-links">
+            
+              <a href="/tags/angularjs/" rel="tag">
+                angularjs
+              </a>
+            
+              <a href="/tags/依赖注入/" rel="tag">
+                依赖注入
+              </a>
+            
+            </div>
+          
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 实现inject对象</span></div><div class="line"><span class="keyword">const</span> inject = &#123;</div><div class="line">  dependencies: &#123;&#125;,</div><div class="line">  register: <span class="function"><span class="keyword">function</span> (<span class="params">key, value</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.dependencies[key] = value;</div><div class="line">  &#125;,</div><div class="line">  resolve: <span class="function"><span class="keyword">function</span> (<span class="params">func, scope</span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> arr = [];</div><div class="line"></div><div class="line">  <span class="comment">// 这些正则是在angular的源码里找来的</span></div><div class="line">  <span class="comment">// 首先把这个函数toString,然后FN_ARGS匹配出来函数的参数，这个参数就是我们依赖的表</span></div><div class="line">  <span class="comment">// 那么这个时候我们已经拿到依赖的表了，我们按照这个表里取出相对应的函数体给他就完了</span></div><div class="line">    <span class="keyword">let</span> FN_ARGS = <span class="regexp">/^function\s*[^\(]*\(\s*([^\)]*)\)/m</span>;</div><div class="line">    <span class="keyword">let</span> STRIP_COMMENTS = <span class="regexp">/((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg</span>;</div><div class="line">    <span class="keyword">let</span> fnText = func.toString().replace(STRIP_COMMENTS, <span class="string">''</span>);</div><div class="line">    <span class="keyword">let</span> argDecl = fnText.match(FN_ARGS);</div><div class="line">    <span class="keyword">let</span> deps = argDecl[<span class="number">1</span>].split(<span class="string">','</span>);</div><div class="line"></div><div class="line">    deps.forEach(<span class="function"><span class="params">dep</span> =&gt;</span> &#123;</div><div class="line">      dep = dep.trim();</div><div class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.dependencies.hasOwnProperty(dep)) &#123;</div><div class="line">        arr.push(<span class="keyword">this</span>.dependencies[dep])</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        arr.push(<span class="literal">undefined</span>);</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">    <span class="keyword">return</span> func.bind.apply(func,[<span class="keyword">this</span>].concat(arr));</div><div class="line">  &#125;,</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 注册参数</span></div><div class="line">inject.register(<span class="string">'$scope'</span>, &#123;</div><div class="line">  get() &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'this is my scope'</span>;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">inject.register(<span class="string">'$http'</span>, &#123;</div><div class="line">  get() &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'this is my http'</span>;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 假装这是个controller注解</span></div><div class="line"><span class="keyword">const</span> controller = inject.resolve.bind(inject);</div><div class="line"></div><div class="line"></div><div class="line">@controller</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyController</span> </span>&#123;</div><div class="line">  <span class="comment">// 这里$http,$scope的位置可以随意改动</span></div><div class="line">  <span class="keyword">constructor</span>($http, $scope)&#123;</div><div class="line">    <span class="built_in">console</span>.log($scope.get());</div><div class="line">    <span class="built_in">console</span>.log($http.get());</div><div class="line">  &#125;</div><div class="line">  doSome()&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">213</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> MyController();</div></pre></td></tr></table></figure>
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="theme-container">
+      
+<div id="gayhub-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: location.pathname,
+  owner: 'blankPen',
+  repo: 'blankpen.github.io',
+  oauth: {
+    client_id: '2876433f6deb48fd8ee0',
+    client_secret: '60c78fd55ce124b53e6f6110409f2bae2d518877',
+  },
+})
+gitment.render('gayhub-container')
+</script>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+      
+        <div class="nav-next">
+          <a href="/2017/09/21/三分钟了解Git-hook/" rel="prev">下一章 <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>PENiNK &copy; 2017</span>
+    
+      <span class="split">|</span>
+      <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> with Theme <a href="https://github.com/GallenHu/hexo-theme-Daily" target="_blank">Daily</a></span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+
+<script src='//at.alicdn.com/t/font_416556_smhdkcvqvgyzaor.js' ></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.core.js"></script>
+<script src="/js/echo.js?timestamp=1506003030288"></script>
+<script src="/js/app.js?timestamp=1506003030288"></script>
+
+
+
+
+</body>
+
+</html>

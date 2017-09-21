@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zhen Pen">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="三分钟了解Git hook"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="PENiNK"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>三分钟了解Git hook - PENiNK</title>
+
+
+  <link rel="shortcut icon" href="/images/JJMonster.png">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-reboot.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-grid.min.css" rel="stylesheet">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css?timestamp=1506003030289">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        PENiNK
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar-menu"> 
+      
+        
+          <a href="/.">
+            
+              home
+            
+          </a>
+        
+          <a href="/archives">
+            
+              archive
+            
+          </a>
+        
+          <a href="/about">
+            
+              about
+            
+          </a>
+        
+        <a href="/search/">
+          <svg class="svg-icon" aria-hidden="true">
+            <use xlink:href="#icon-search"></use>
+          </svg>
+        </a>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  
+<div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    
+      <div class="post-hodler" ></div>
+    
+    <div class="theme-container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            三分钟了解Git hook
+            
+          </h1>
+          <p class="posted-on">
+          Published on 2017-09-21 21:55:05
+          </p>
+          
+          <div class="tags-links">
+            
+              <a href="/tags/git/" rel="tag">
+                git
+              </a>
+            
+              <a href="/tags/hook/" rel="tag">
+                hook
+              </a>
+            
+            </div>
+          
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <h2 id="什么是Git-hook"><a href="#什么是Git-hook" class="headerlink" title="什么是Git hook"></a>什么是Git hook</h2><ul>
+<li>hooks存放在git仓库的<code>.git/hooks</code>目录下，其中包括很多hook，这些是在git 仓库创建的时候自动生成的</li>
+<li>自动生成的hooks后缀名统一都是<code>.sample</code>，表示这些hook是不启用的，当把后缀名去掉之后，就变成了可以使用的hook。</li>
+</ul>
+<h3 id="hook类型"><a href="#hook类型" class="headerlink" title="hook类型"></a>hook类型</h3><ul>
+<li><strong>先行脚本</strong> 可用于实现代码规范的统一、完整性检查、环境搭建等功能</li>
+<li><p><strong>后行脚本</strong>可用于实现代码的部署、权限错误纠正等功能</p>
+</li>
+<li><p><strong>客户端hook</strong>  </p>
+<ul>
+<li><strong>代码提交相关的工作流hook</strong></li>
+<li>代码合并、签出（check out）、rebase、重写（rewrite）、以及软件仓库的清理等工作。</li>
+</ul>
+</li>
+<li><strong>服务端hook</strong> <ul>
+<li>接受触发类，在服务器接收到一个推送之前（检查）或者之后（部署）执行的动作</li>
+<li>更新触发类，在每一个分支更新之前指向动作</li>
+</ul>
+</li>
+</ul>
+<h3 id="hook最基本的组成"><a href="#hook最基本的组成" class="headerlink" title="hook最基本的组成"></a>hook最基本的组成</h3><ol>
+<li>基于事件触发的脚本语言（shell、Python、<strong>nodejs</strong>等）</li>
+<li>这个脚本运行了一些东西，然后退出了</li>
+<li>退出的时候返回错误代码，当退出的错误码不为0的时候，表示失败，操作终止，否则操作继续。</li>
+</ol>
+<h3 id="所有hook"><a href="#所有hook" class="headerlink" title="所有hook"></a>所有hook</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">Hook名称</th>
+<th style="text-align:left">触发指令</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">参数的个数与描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">applypatch-msg</td>
+<td style="text-align:left"><code>git am</code></td>
+<td style="text-align:left">可以编辑commit时提交的message。通常用于验证或纠正补丁提交的信息以符合项目标准。</td>
+<td style="text-align:left">(1) 包含预备commit信息的文件名</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-applypatch</td>
+<td style="text-align:left"><code>git am</code></td>
+<td style="text-align:left">虽然这个hook的名称是“打补丁前”，不过实际上的调用时机是打补丁之后、变更commit之前。如果以非0的状态退出，会导致变更成为uncommitted状态。可用于在实际进行commit之前检查代码树的状态。</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left">post-applypatch</td>
+<td style="text-align:left"><code>git am</code></td>
+<td style="text-align:left">本hook的调用时机是打补丁后、commit完成提交后。因此，本hook无法用于取消进程，而主要用于通知。</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-commit</td>
+<td style="text-align:left"><code>git commit</code></td>
+<td style="text-align:left">本hook的调用时机是在获取commit message之前。如果以非0的状态退出则会取消本次commit。主要用于检查commit本身（而不是message）</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left">prepare-commit-msg</td>
+<td style="text-align:left"><code>git commit</code></td>
+<td style="text-align:left">本hook的调用时机是在接收默认commit message之后、启动commit message编辑器之前。非0的返回结果会取消本次commit。本hook可用于强制应用指定的commit message。</td>
+<td style="text-align:left">1. 包含commit message的文件名。2. commit message的源（message、template、merge、squash或commit）。3. commit的SHA-1（在现有commit上操作的情况）。</td>
+</tr>
+<tr>
+<td style="text-align:left">commit-msg</td>
+<td style="text-align:left"><code>git commit</code></td>
+<td style="text-align:left">可用于在message提交之后修改message的内容或打回message不合格的commit。非0的返回结果会取消本次commit。</td>
+<td style="text-align:left">(1) 包含message内容的文件名。</td>
+</tr>
+<tr>
+<td style="text-align:left">post-commit</td>
+<td style="text-align:left"><code>git commit</code></td>
+<td style="text-align:left">本hook在commit完成之后调用，因此无法用于打回commit。主要用于通知。</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-rebase</td>
+<td style="text-align:left"><code>git rebase</code></td>
+<td style="text-align:left">在执行rebase的时候调用，可用于中断不想要的rebase。</td>
+<td style="text-align:left">1. 本次fork的上游。2. 被rebase的分支（如果rebase的是当前分支则没有此参数）</td>
+</tr>
+<tr>
+<td style="text-align:left">post-checkout</td>
+<td style="text-align:left"><code>git checkout</code> 和 <code>git clone</code></td>
+<td style="text-align:left">更新工作树后调用checkout时调用，或者执行 git clone后调用。主要用于验证环境、显示变更、配置环境。</td>
+<td style="text-align:left">1. 之前的HEAD的ref。 2. 新HEAD的ref。 3. 一个标签，表示其是一次branch checkout还是file checkout。</td>
+</tr>
+<tr>
+<td style="text-align:left">post-merge</td>
+<td style="text-align:left"><code>git merge</code> 或 <code>git pull</code></td>
+<td style="text-align:left">合并后调用，无法用于取消合并。可用于进行权限操作等git无法执行的动作。</td>
+<td style="text-align:left">(1) 一个标签，表示是否是一次标注为squash的merge。</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-push</td>
+<td style="text-align:left"><code>git push</code></td>
+<td style="text-align:left">在往远程push之前调用。本hook除了携带参数之外，还同时给stdin输入了如下信息：” ”（每项之间有空格）。这些信息可以用来做一些检查，比如说，如果本地（local）sha1为40个零，则本次push是一个删除操作；如果远程（remote）sha1是40个零，则是一个新的分支。非0的返回结果会取消本次push。</td>
+<td style="text-align:left">1. 远程目标的名称。 2. 远程目标的位置。</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-receive</td>
+<td style="text-align:left">远程repo进行<code>git-receive-pack</code></td>
+<td style="text-align:left">本hook在远程repo更新刚被push的ref之前调用。非0的返回结果会中断本次进程。本hook虽然不携带参数，但是会给stdin输入如下信息：” ”。</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left">update</td>
+<td style="text-align:left">远程repo进行<code>git-receive-pack</code></td>
+<td style="text-align:left">本hook在远程repo每一次ref被push的时候调用（而不是每一次push）。可以用于满足“所有的commit只能快进”这样的需求。</td>
+<td style="text-align:left">1. 被更新的ref名称。2. 老的对象名称。3. 新的对象名称。</td>
+</tr>
+<tr>
+<td style="text-align:left">post-receive</td>
+<td style="text-align:left">远程repo进行<code>git-receive-pack</code></td>
+<td style="text-align:left">本hook在远程repo上所有ref被更新后，push操作的时候调用。本hook不携带参数，但可以从stdin接收信息，接收格式为” ”。因为hook的调用在更新之后进行，因此无法用于终止进程。</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left">post-update</td>
+<td style="text-align:left">远程repo进行<code>git-receive-pack</code></td>
+<td style="text-align:left">本hook仅在所有的ref被push之后执行一次。它与post-receive很像，但是不接收旧值与新值。主要用于通知。</td>
+<td style="text-align:left">每个被push的repo都会生成一个参数，参数内容是ref的名称</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-auto-gc</td>
+<td style="text-align:left"><code>git gc –auto</code></td>
+<td style="text-align:left">用于在自动清理repo之前做一些检查。</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left">post-rewrite</td>
+<td style="text-align:left"><code>git commit –amend</code>,<code>git-rebase</code></td>
+<td style="text-align:left">本hook在git命令重写（rewrite）已经被commit的数据时调用。除了其携带的参数之外，本hook还从stdin接收信息，信息格式为” ”。</td>
+<td style="text-align:left">触发本hook的命令名称（amend或者rebase）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="怎么写一个hook"><a href="#怎么写一个hook" class="headerlink" title="怎么写一个hook"></a>怎么写一个hook</h2><h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义脚本语言</span></div><div class="line"><span class="meta">#!/usr/bin/env node </span></div><div class="line"><span class="comment">// 你的脚本内容</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div></pre></td></tr></table></figure>
+<h3 id="hook的局限性"><a href="#hook的局限性" class="headerlink" title="hook的局限性"></a>hook的局限性</h3><blockquote>
+<p>客户端hook脚本是写在本地的，没法随着仓库变动，也就是说，每个人都要在自己本地去写一份脚本，然后放在<code>.git/hooks</code>文件夹下，贼麻烦。</p>
+</blockquote>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><blockquote>
+<p>业界大佬提供了各种npm库任你挑选</p>
+<ul>
+<li>pre-commit</li>
+<li>pre-push</li>
+<li>ghooks -&gt; husky</li>
+<li>…</li>
+</ul>
+</blockquote>
+<h2 id="先讲一个最牛皮的husky"><a href="#先讲一个最牛皮的husky" class="headerlink" title="先讲一个最牛皮的husky"></a>先讲一个最牛皮的husky</h2><blockquote>
+<p>支持所有的hook</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install husky --save-dev</div></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// Edit package.json </div><div class="line">&#123;</div><div class="line">  <span class="attr">"scripts"</span>: &#123;</div><div class="line">    <span class="attr">"precommit"</span>: <span class="string">"npm run you-script.js"</span>,</div><div class="line">    <span class="attr">"prepush"</span>: <span class="string">"npm run you-script.js"</span>,</div><div class="line">    <span class="attr">"..."</span>: <span class="string">"..."</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Git hook</th>
+<th style="text-align:left">npm script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">applypatch-msg</td>
+<td style="text-align:left">applypatchmsg</td>
+</tr>
+<tr>
+<td style="text-align:left">commit-msg</td>
+<td style="text-align:left">commitmsg</td>
+</tr>
+<tr>
+<td style="text-align:left">post-applypatch</td>
+<td style="text-align:left">postapplypatch</td>
+</tr>
+<tr>
+<td style="text-align:left">post-checkout</td>
+<td style="text-align:left">postcheckout</td>
+</tr>
+<tr>
+<td style="text-align:left">post-commit</td>
+<td style="text-align:left">postcommit</td>
+</tr>
+<tr>
+<td style="text-align:left">post-merge</td>
+<td style="text-align:left">postmerge</td>
+</tr>
+<tr>
+<td style="text-align:left">post-receive</td>
+<td style="text-align:left">postreceive</td>
+</tr>
+<tr>
+<td style="text-align:left">post-rewrite</td>
+<td style="text-align:left">postrewrite</td>
+</tr>
+<tr>
+<td style="text-align:left">post-update</td>
+<td style="text-align:left">postupdate</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-applypatch</td>
+<td style="text-align:left">preapplypatch</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-auto-gc</td>
+<td style="text-align:left">preautogc</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-commit</td>
+<td style="text-align:left">precommit</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-push</td>
+<td style="text-align:left">prepush</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-rebase</td>
+<td style="text-align:left">prerebase</td>
+</tr>
+<tr>
+<td style="text-align:left">pre-receive</td>
+<td style="text-align:left">prereceive</td>
+</tr>
+<tr>
+<td style="text-align:left">prepare-commit-msg</td>
+<td style="text-align:left">preparecommitmsg</td>
+</tr>
+<tr>
+<td style="text-align:left">push-to-checkout</td>
+<td style="text-align:left">pushtocheckout</td>
+</tr>
+<tr>
+<td style="text-align:left">update</td>
+<td style="text-align:left">update</td>
+</tr>
+<tr>
+<td style="text-align:left">sendemail-validate</td>
+<td style="text-align:left">sendemailvalidate</td>
+</tr>
+</tbody>
+</table>
+<h2 id="再写一个最简单的pre-push"><a href="#再写一个最简单的pre-push" class="headerlink" title="再写一个最简单的pre-push"></a>再写一个最简单的pre-push</h2><blockquote>
+<p>用pre-push库和eslint在客户端推送代码前进行代码校验<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>(<span class="string">'./color.js'</span>);</div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">const</span> execSync = <span class="built_in">require</span>(<span class="string">'child_process'</span>).execSync;</div><div class="line"></div><div class="line"><span class="keyword">const</span> log = <span class="built_in">console</span>.log;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">logError</span>(<span class="params">err</span>) </span>&#123;</div><div class="line">  log(<span class="string">`<span class="subst">$&#123;<span class="string">'错误文件：'</span>.red&#125;</span> <span class="subst">$&#123;err.filePath.green&#125;</span>`</span>);</div><div class="line">  err.messages.forEach(<span class="function">(<span class="params">msg</span>) =&gt;</span> &#123;</div><div class="line">    log(<span class="string">`<span class="subst">$&#123;<span class="string">` <span class="subst">$&#123;msg.line&#125;</span>行<span class="subst">$&#123;msg.column&#125;</span>列：`</span>.red&#125;</span> <span class="subst">$&#123;msg.source&#125;</span>`</span>);</div><div class="line">    log(<span class="string">`<span class="subst">$&#123;<span class="string">' message：'</span>.red&#125;</span> <span class="subst">$&#123;msg.message.yellow&#125;</span>   <span class="subst">$&#123;msg.ruleId.yellow&#125;</span>`</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">lint</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    log(<span class="string">'开始eslint检测...'</span>);</div><div class="line">    execSync(<span class="string">'npm run lint'</span>);</div><div class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</div><div class="line">    <span class="keyword">const</span> result = fs.readFileSync(<span class="string">'.eslintstatus'</span>, <span class="string">'utf8'</span>);</div><div class="line">    <span class="keyword">const</span> errs = <span class="built_in">JSON</span>.parse(result).filter(<span class="function"><span class="params">item</span> =&gt;</span> item.errorCount &gt; <span class="number">0</span>);</div><div class="line">    log(<span class="string">'\n'</span>);</div><div class="line">    errs.forEach(logError);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">lint();</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><p><a href="https://eslint.org/docs/user-guide/command-line-interface" target="_blank" rel="external">ESLint</a><br><a href="https://github.com/typicode/husky" target="_blank" rel="external">GitHub - typicode/husky: Git hooks made easy</a><br><a href="https://github.com/ghooks-org/ghooks" target="_blank" rel="external">GitHub - ghooks-org/ghooks: CURRENTLY DEPRECATED Simple git hooks</a><br><a href="https://github.com/dflourusso/pre-push" target="_blank" rel="external">GitHub - dflourusso/pre-push: Add a pre-push git hook</a><br><a href="https://github.com/observing/pre-commit" target="_blank" rel="external">GitHub - observing/pre-commit: Automatically installs a git pre-commit script in your git repository which runs your <code>npm test</code> on pre-commit</a></p>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="theme-container">
+      
+<div id="gayhub-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: location.pathname,
+  owner: 'blankPen',
+  repo: 'blankpen.github.io',
+  oauth: {
+    client_id: '2876433f6deb48fd8ee0',
+    client_secret: '60c78fd55ce124b53e6f6110409f2bae2d518877',
+  },
+})
+gitment.render('gayhub-container')
+</script>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/09/21/angularjs实现依赖注入机制/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一章</a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="/2017/09/16/关于-head-可以插入的清单/" rel="prev">下一章 <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>PENiNK &copy; 2017</span>
+    
+      <span class="split">|</span>
+      <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> with Theme <a href="https://github.com/GallenHu/hexo-theme-Daily" target="_blank">Daily</a></span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+
+<script src='//at.alicdn.com/t/font_416556_smhdkcvqvgyzaor.js' ></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.core.js"></script>
+<script src="/js/echo.js?timestamp=1506003030290"></script>
+<script src="/js/app.js?timestamp=1506003030290"></script>
+
+
+
+
+</body>
+
+</html>

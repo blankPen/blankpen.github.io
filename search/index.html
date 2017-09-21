@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zhen Pen">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="Search"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="PENiNK"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>Search - PENiNK</title>
+
+
+  <link rel="shortcut icon" href="/images/JJMonster.png">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-reboot.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-grid.min.css" rel="stylesheet">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css?timestamp=1506003030269">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        PENiNK
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar-menu"> 
+      
+        
+          <a href="/.">
+            
+              home
+            
+          </a>
+        
+          <a href="/archives">
+            
+              archive
+            
+          </a>
+        
+          <a href="/about">
+            
+              about
+            
+          </a>
+        
+        <a href="/search/">
+          <svg class="svg-icon" aria-hidden="true">
+            <use xlink:href="#icon-search"></use>
+          </svg>
+        </a>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  
+<div class='search-page'>
+  <div id='search' class='search-content'>
+    <form class="search-box clearfix">
+      <input type="text" id="input" placeholder="Search..." maxlength="30" autocomplete="off">
+      <button type="submit">
+        <svg class="svg-icon" aria-hidden="true">
+          <use xlink:href="#icon-search"></use>
+        </svg>
+      </button>
+    </form>
+    <div class='search-tags'>
+      <p>
+        <svg class="svg-icon" aria-hidden="true">
+          <use xlink:href="#icon-huo"></use>
+        </svg> 
+        热门搜索
+      </p>
+      
+        <a href="/search/?t=angularjs">angularjs</a>
+      
+        <a href="/search/?t=依赖注入">依赖注入</a>
+      
+        <a href="/search/?t=前端开发">前端开发</a>
+      
+        <a href="/search/?t=CSS">CSS</a>
+      
+        <a href="/search/?t=git">git</a>
+      
+        <a href="/search/?t=hook">hook</a>
+      
+        <a href="/search/?t=HTML">HTML</a>
+      
+    </div>
+  </div>
+  <div id='search-result' class='search-content'>
+    <!-- 搜索结果 -->
+  </div>
+  <script>
+    var d = document.createElement('div');
+    d.innerHTML = '[{&#34;tags&#34;:[&#34;angularjs&#34;,&#34;依赖注入&#34;],&#34;title&#34;:&#34;angularjs实现依赖注入机制&#34;,&#34;date&#34;:&#34;2017-09-21&#34;,&#34;path&#34;:&#34;/2017/09/21/angularjs实现依赖注入机制/&#34;},{&#34;tags&#34;:[&#34;前端开发&#34;,&#34;CSS&#34;],&#34;title&#34;:&#34;标题&#34;,&#34;date&#34;:&#34;2017-09-13&#34;,&#34;path&#34;:&#34;/2017/09/13/hello-world/&#34;},{&#34;tags&#34;:[&#34;git&#34;,&#34;hook&#34;],&#34;title&#34;:&#34;三分钟了解Git hook&#34;,&#34;date&#34;:&#34;2017-09-21&#34;,&#34;path&#34;:&#34;/2017/09/21/三分钟了解Git-hook/&#34;},{&#34;tags&#34;:[],&#34;title&#34;:&#34;本地静态图片测试&#34;,&#34;date&#34;:&#34;2017-09-14&#34;,&#34;path&#34;:&#34;/2017/09/14/本地静态图片测试/&#34;},{&#34;tags&#34;:[&#34;HTML&#34;],&#34;title&#34;:&#34;关于&lt;head&gt;可以插入的清单&#34;,&#34;date&#34;:&#34;2017-09-16&#34;,&#34;path&#34;:&#34;/2017/09/16/关于-head-可以插入的清单/&#34;},{&#34;tags&#34;:[],&#34;title&#34;:&#34;这是一篇测试文章&#34;,&#34;date&#34;:&#34;2017-09-14&#34;,&#34;path&#34;:&#34;/2017/09/14/这是一篇测试文章/&#34;}]';
+    var ALL_POSTS = JSON.parse(d.innerText);
+    d = null;
+    window.onload = function(){
+      app.initSearch();
+    }
+  </script>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>PENiNK &copy; 2017</span>
+    
+      <span class="split">|</span>
+      <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> with Theme <a href="https://github.com/GallenHu/hexo-theme-Daily" target="_blank">Daily</a></span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+
+<script src='//at.alicdn.com/t/font_416556_smhdkcvqvgyzaor.js' ></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.core.js"></script>
+<script src="/js/echo.js?timestamp=1506003030270"></script>
+<script src="/js/app.js?timestamp=1506003030270"></script>
+
+
+
+
+</body>
+
+</html>
